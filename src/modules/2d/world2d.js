@@ -1,6 +1,13 @@
 import utils from "../utils.js";
 import Particle2D from "./particle2d.js";
+import Spring2D from "./spring2d.js";
+import Stick2D from "./stick2d.js";
 import Vector2D from "./vector2d.js";
+
+const boundaryBehavior = Object.freeze({
+    wrapAround: "wrap Around",
+    bounce: "bounce"
+})
 
 class World2d {
     constructor(constructors = {parent: null}) {
@@ -12,14 +19,16 @@ class World2d {
             acceleration: new Vector2D(0, 0.1)
         }
         this.objects = {
+            sticks: [],
             springs: [],
-            particles: []
+            particles: [],
         }
         this.center = null;
         this.mouseEvents = {
             heldParticle: null,
             pathTraced: []
         }
+        this.boundaryBehavior = boundaryBehavior.bounce;
     }
     createCanvas(width = this.parent.offsetWidth, height = this.parent.offsetHeight) {
         const canvas = document.createElement("canvas");
@@ -80,33 +89,73 @@ class World2d {
     }
     createParticle2D(x = this.center.x, y = this.center.y) {
         const particle = new Particle2D(x, y);
-
         this.objects.particles.push(particle);
         return particle;
+    }
+    createSpring2D(a = new Particle2D(), b = new Particle2D()) {
+        const spring = new Spring2D(a, b);
+        this.objects.springs.push(spring);
+        return spring;
+    }
+    createStick2D(a = new Particle2D(), b = new Particle2D()) {
+        const stick = new Stick2D(a, b);
+        this.objects.sticks.push(stick);
+        return stick;
+    }
+    deflectParticle(particle) {
+        if (particle.position.x > this.canvas.width - particle.radius) {
+            particle.position.x = this.canvas.width - particle.radius
+            particle.deflect("x");
+        }
+        if (particle.position.x < particle.radius) {
+            particle.position.x = particle.radius
+            particle.deflect("x");
+        }
+        if (particle.position.y > this.canvas.height - particle.radius) {
+            particle.position.y = this.canvas.height - particle.radius;
+            particle.deflect("y");
+        }
+        if (particle.position.y < particle.radius) {
+            particle.position.y = particle.radius;
+            particle.deflect("y");
+        }
+    }
+    wrapParticle(particle) {
+        if (particle.position.x > this.canvas.width - particle.radius) {
+            particle.position.x = this.canvas.width - particle.radius
+            particle.deflect("x");
+        }
+        if (particle.position.x < particle.radius) {
+            particle.position.x = particle.radius
+            particle.deflect("x");
+        }
+        if (particle.position.y > this.canvas.height - particle.radius) {
+            particle.position.y = this.canvas.height - particle.radius;
+            particle.deflect("y");
+        }
+        if (particle.position.y < particle.radius) {
+            particle.position.y = particle.radius;
+            particle.deflect("y");
+        }
     }
     handleParticles() {
         this.objects.particles.forEach((particle) => {
             if (this.gravity.state) {
                 particle.applyForce(this.gravity.acceleration);
             }
-            if (particle.position.x > this.canvas.width - particle.radius) {
-                particle.position.x = this.canvas.width - particle.radius
-                particle.deflect("x");
+            if (this.boundaryBehavior == boundaryBehavior.bounce) {
+                this.deflectParticle(particle);
+            } else if (this.boundaryBehavior == boundaryBehavior.wrapAround) {
+                this.wrapParticle(particle);
             }
-            if (particle.position.x < particle.radius) {
-                particle.position.x = particle.radius
-                particle.deflect("x");
+            
+            particle.detectCollision(this.objects.particles);
+
+            if (!particle.fixed || !particle.isHeldByMouse) {
+                particle.update();
             }
-            if (particle.position.y > this.canvas.height - particle.radius) {
-                particle.position.y = this.canvas.height - particle.radius;
-                particle.deflect("y");
-            }
-            if (particle.position.y < particle.radius) {
-                particle.position.y = particle.radius;
-                particle.deflect("y");
-            }
-            particle.update();
-            particle.draw(this.pen);
+
+            particle.show(this.pen);
         })
     }
     update() {
@@ -114,7 +163,11 @@ class World2d {
         this.handleParticles();
         this.objects.springs.forEach((spring) => {
             spring.update();
-            spring.draw(this.pen);
+            spring.show(this.pen);
+        })
+        this.objects.sticks.forEach((stick) => {
+            stick.update();
+            stick.show(this.pen);
         })
     }
 }

@@ -11,15 +11,24 @@ class Particle2D {
         this.velocity = new Vector2D();
         this.damping = 0.99;
         this.isHeldByMouse = false;
-    }
-    applyForce(force){
-        if (!this.isHeldByMouse) {
-            this.acceleration.add(force);
+        this.fixed = false;
+        this.style = {
+            stroke: false,
+            strokeColor: "black",
+            strokeWidth: 1,
+            fill: true,
+            fillColor: "black",
         }
     }
+    applyForce(force){
+        if (this.isHeldByMouse || this.fixed) return;
+        this.acceleration.add(force);
+    }
     deflect(direction = "") {
+        if (this.isHeldByMouse || this.fixed) return;
+        
         const velocity = this.position.copy().subtract(this.prevPosition)
-
+        
         if (direction.toLowerCase() === "x") {
             this.prevPosition.x = this.position.x + velocity.x;
         } else if (direction.toLowerCase() === "y") {
@@ -29,8 +38,34 @@ class Particle2D {
             this.prevPosition.y = this.position.y + velocity.y;
         }
     }
+    detectCollision(particles) {
+        particles.forEach((particle) => {
+            if (particle === this) return;
+
+            const distanceToParticle = this.position.distanceTo(particle.position);
+
+            if (distanceToParticle < this.radius + particle.radius) {
+                // Calculate displacement vector from this particle to the other particle
+                const displacement = particle.position.copy().subtract(this.position);
+                displacement.normalize();
+                
+                // Compute deflection displacements
+                const combinedDamping = Math.sqrt(this.damping * particle.damping);
+                const deflectionMagnitude = (this.radius + particle.radius - distanceToParticle) / 2; // Adjust the deflection magnitude as needed
+                const deflectionDisplacement = displacement.copy().scalarMultiply(deflectionMagnitude);
+
+                // Update particle positions to simulate deflection
+                if (!this.isHeldByMouse && !this.fixed){
+                    this.position.add(deflectionDisplacement);
+                }
+                if (!particle.isHeldByMouse && !particle.fixed){
+                    particle.position.subtract(deflectionDisplacement);
+                }
+            }
+        })
+    }
     update() {
-        if (this.isHeldByMouse) return;
+        if (this.isHeldByMouse || this.fixed) return;
         
         const tempPos = this.position.copy();
 
@@ -42,11 +77,19 @@ class Particle2D {
         this.acceleration = new Vector2D();
 
     }
-    draw(pen){
+    show(pen){
         pen.beginPath();
         pen.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-        pen.fillStyle = 'black';
-        pen.fill();
+        
+        pen.strokeStyle = this.style.strokeColor;
+        pen.fillStyle = this.style.fillColor;
+
+        if (this.style.fill) {
+            pen.fill();
+        }
+        if (this.style.stroke) {
+            pen.stroke();
+        }
     }
 }
 

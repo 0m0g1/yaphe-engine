@@ -53,6 +53,9 @@ class Vector2D {
         }
         return totalVector;
     }
+    dot(vector) {
+        return this.x * vector.x + this.y * vector.y;
+    }
     copy() {
         return new Vector2D(this.x, this.y);
     }
