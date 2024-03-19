@@ -8,6 +8,7 @@ class Spring2D {
         this.velocity = new Vector2D();
         this.k = 0.01;
         this.restLength = 150;
+        this.maxLength = 500;
     }
     update() {
         const force = this.bob.position.copy().subtract(this.anchor.position);
@@ -27,6 +28,24 @@ class Spring2D {
         }
 
         this.velocity.scalarMultiply(0.99);
+
+        const delta = this.bob.position.copy().subtract(this.anchor.position);
+        const displacement = this.anchor.position.distanceTo(this.bob.position);
+        const difference = this.restLength - displacement;
+        
+        if (difference > 0) return;
+
+        const percentage = (difference / displacement) / 2;
+
+        const offset = delta.scalarMultiply(percentage);
+        
+        if (!this.anchor.isHeldByMouse && !this.anchor.fixed) {
+            this.anchor.position.subtract(offset);
+        }
+        if (!this.bob.isHeldByMouse && !this.bob.fixed) {
+            this.bob.position.add(offset);
+        }
+
     }
     show(pen) {
         pen.beginPath();

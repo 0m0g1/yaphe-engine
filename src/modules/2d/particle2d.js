@@ -19,10 +19,11 @@ class Particle2D {
             fill: true,
             fillColor: "black",
         }
+        this.mass = 1;
     }
     applyForce(force){
         if (this.isHeldByMouse || this.fixed) return;
-        this.acceleration.add(force);
+        this.acceleration.add(force.copy().scalarDivide(this.mass));
     }
     deflect(direction = "") {
         if (this.isHeldByMouse || this.fixed) return;
@@ -41,26 +42,19 @@ class Particle2D {
     detectCollision(particles) {
         particles.forEach((particle) => {
             if (particle === this) return;
+            
+            const distance = this.position.distanceTo(particle.position);
+            if (distance < this.radius + particle.radius) {
+                // Calculate impulse magnitude for inelastic collision using damping
+                const impulseMagnitude = distance - (this.radius + particle.radius);
+                const impulseVector = this.position.copy().subtract(particle.position).normalize().scalarMultiply(impulseMagnitude * particle.damping);
 
-            const distanceToParticle = this.position.distanceTo(particle.position);
+                // Apply impulse to adjust positions
+                const displacementA = impulseVector.scalarMultiply(1 / (1 / this.mass + 1 / particle.mass));
+                const displacementB = displacementA.scalarMultiply(-1);
 
-            if (distanceToParticle < this.radius + particle.radius) {
-                // Calculate displacement vector from this particle to the other particle
-                const displacement = particle.position.copy().subtract(this.position);
-                displacement.normalize();
-                
-                // Compute deflection displacements
-                const combinedDamping = Math.sqrt(this.damping * particle.damping);
-                const deflectionMagnitude = (this.radius + particle.radius - distanceToParticle) / 2; // Adjust the deflection magnitude as needed
-                const deflectionDisplacement = displacement.copy().scalarMultiply(deflectionMagnitude);
-
-                // Update particle positions to simulate deflection
-                if (!this.isHeldByMouse && !this.fixed){
-                    this.position.add(deflectionDisplacement);
-                }
-                if (!particle.isHeldByMouse && !particle.fixed){
-                    particle.position.subtract(deflectionDisplacement);
-                }
+                this.position.add(displacementA);
+                particle.position.subtract(displacementB);
             }
         })
     }

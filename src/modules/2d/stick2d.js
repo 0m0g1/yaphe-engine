@@ -13,11 +13,11 @@ class Stick2D {
         const percentage = (difference / displacement) / 2;
 
         const offset = delta.scalarMultiply(percentage);
-
-        if (!this.anchor.isHeldByMouse && !this.anchor.fixed) {
+        
+        if ((!this.anchor.isHeldByMouse && !this.anchor.fixed) || difference !== 0) {
             this.anchor.position.subtract(offset);
         }
-        if (!this.bob.isHeldByMouse && !this.bob.fixed) {
+        if ((!this.bob.isHeldByMouse && !this.bob.fixed) || difference !== 0) {
             this.bob.position.add(offset);
         }
     }
