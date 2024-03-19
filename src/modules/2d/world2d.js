@@ -1,5 +1,7 @@
 import utils from "../utils.js";
+import Bounds2D from "./bounds2d.js";
 import Particle2D from "./particle2d.js";
+import Quadtree2D from "./quadtree2d.js";
 import Spring2D from "./spring2d.js";
 import Stick2D from "./stick2d.js";
 import Vector2D from "./vector2d.js";
@@ -29,6 +31,8 @@ class World2d {
             pathTraced: []
         }
         this.boundaryBehavior = boundaryBehavior.bounce;
+        this.quadtree = null;
+        this.quadSpaceMaxCapacity = 16;
     }
     createCanvas(width = this.parent.offsetWidth, height = this.parent.offsetHeight) {
         const canvas = document.createElement("canvas");
@@ -45,11 +49,21 @@ class World2d {
             y: canvas.height / 2
         }
 
+        this.quadtree = new Quadtree2D(new Bounds2D(0, 0, canvas.width, canvas.height), this.quadSpaceMaxCapacity);
+
         canvas.onmousedown = (e) => {
             const mouseVector = new Vector2D(e.clientX, e.clientY);
             for (let i = 0; i < this.objects.particles.length; i++) {
                 const particle = this.objects.particles[i];
-                if (particle.position.distanceFrom(mouseVector) < particle.radius) {
+                let distanceToParticle = particle.position.distanceFrom(mouseVector);
+                if (particle.radius > 4) {
+                    if (distanceToParticle < particle.radius) {
+                        this.mouseEvents.heldParticle = particle;
+                        particle.isHeldByMouse = true;
+                        canvas.style.cursor = "grab";
+                        break;
+                    }
+                } else if (distanceToParticle < particle.radius + 4) {
                     this.mouseEvents.heldParticle = particle;
                     particle.isHeldByMouse = true;
                     canvas.style.cursor = "grab";
@@ -87,9 +101,17 @@ class World2d {
             y: this.canvas.height / 2
         }
     }
-    createParticle2D(x = this.center.x, y = this.center.y) {
-        const particle = new Particle2D(x, y);
+    updateQuadtree() {
+        // Clear the quadtree and insert all particles
+        // this.quadtree.clear();
+        // this.objects.particles.forEach((particle) => {
+        //     this.quadtree.insert(particle);
+        // });
+    }
+    createParticle2D(x = this.center.x, y = this.center.y, randomInitialVelocity = false) {
+        const particle = new Particle2D(x, y, randomInitialVelocity);
         this.objects.particles.push(particle);
+        this.quadtree.insert(particle);
         return particle;
     }
     createSpring2D(a = new Particle2D(), b = new Particle2D()) {
@@ -143,13 +165,26 @@ class World2d {
             if (this.gravity.state) {
                 particle.applyForce(this.gravity.acceleration);
             }
+
             if (this.boundaryBehavior == boundaryBehavior.bounce) {
                 this.deflectParticle(particle);
             } else if (this.boundaryBehavior == boundaryBehavior.wrapAround) {
                 this.wrapParticle(particle);
             }
             
-            particle.detectCollision(this.objects.particles);
+            const squareWidth = 4 * particle.radius;
+            const squareHeight = 4 * particle.radius;
+
+            const collisionRange = new Bounds2D(
+                particle.position.x - squareWidth / 2,
+                particle.position.y - squareHeight / 2,
+                squareWidth,
+                squareHeight
+            )
+
+            const nearbyParticles = this.quadtree.queryRange(collisionRange);
+
+            particle.detectCollision(nearbyParticles);
 
             if (!particle.fixed || !particle.isHeldByMouse) {
                 particle.update();
@@ -160,6 +195,7 @@ class World2d {
     }
     update() {
         this.pen.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.quadtree.update();
         this.handleParticles();
         this.objects.springs.forEach((spring) => {
             spring.update();

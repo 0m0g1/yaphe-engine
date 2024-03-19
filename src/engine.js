@@ -14,7 +14,7 @@ class YapheEngine {
         this.world2Ds.push(world2d);
         return world2d;
     }
-    ingite() {
+    ignite() {
         this.start();
     }
     start() {

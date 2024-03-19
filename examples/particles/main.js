@@ -9,4 +9,4 @@ document.onmousedown = (e) => {
     // particle.damping = 0.95;
 }
 
-engine.ingite();
+engine.ignite();

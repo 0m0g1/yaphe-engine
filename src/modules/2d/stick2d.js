@@ -5,6 +5,10 @@ class Stick2D {
         this.anchor = anchor;
         this.bob = bob;
         this.restLength = this.anchor.position.distanceTo(this.bob.position);
+        this.style = {
+            visible: true,
+            lineWidth: 1,
+        }
     }
     update() {
         const delta = this.bob.position.copy().subtract(this.anchor.position);
@@ -13,7 +17,7 @@ class Stick2D {
         const percentage = (difference / displacement) / 2;
 
         const offset = delta.scalarMultiply(percentage);
-        
+
         if ((!this.anchor.isHeldByMouse && !this.anchor.fixed) || difference !== 0) {
             this.anchor.position.subtract(offset);
         }
@@ -22,15 +26,13 @@ class Stick2D {
         }
     }
     show(pen) {
+        if (!this.style.visible) return;
+
         pen.beginPath();
+        pen.lineWidth = this.style.lineWidth;
         pen.moveTo(this.anchor.position.x, this.anchor.position.y);
         pen.lineTo(this.bob.position.x, this.bob.position.y);
         pen.stroke();
-        
-        pen.beginPath();
-        pen.arc(this.anchor.position.x, this.anchor.position.y, 5, 0, 2  * Math.PI);
-        pen.arc(this.bob.position.x, this.bob.position.y, 5, 0, 2  * Math.PI);
-        pen.fill();
     }
 }
 

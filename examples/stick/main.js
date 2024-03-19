@@ -8,4 +8,4 @@ const anchor = stickWorld.createParticle2D(stickWorld.center.x, stickWorld.cente
 const bob = stickWorld.createParticle2D(stickWorld.center.x, stickWorld.center.y + 100);
 const stick = stickWorld.createStick2D(anchor, bob);
 
-engine.ingite();
+engine.ignite();

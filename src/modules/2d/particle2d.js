@@ -1,11 +1,11 @@
 import Vector2D from "./vector2d.js";
 
 class Particle2D {
-    constructor(x = 0, y = 0) {
+    constructor(x = 0, y = 0, randomInitialVelocity = false) {
         this.position = new Vector2D(x, y)
         this.prevPosition = this.position.copy();
-        this.prevPosition.x -= Math.random() * (Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1));
-        this.prevPosition.y -= Math.random() * (Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1));
+        this.prevPosition.x -= randomInitialVelocity ? (Math.random() * (Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1))) : 0;
+        this.prevPosition.y -= randomInitialVelocity ? (Math.random() * (Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1))) : 0;
         this.acceleration = new Vector2D();
         this.radius = 10;
         this.velocity = new Vector2D();
@@ -13,6 +13,7 @@ class Particle2D {
         this.isHeldByMouse = false;
         this.fixed = false;
         this.style = {
+            visible: true,
             stroke: false,
             strokeColor: "black",
             strokeWidth: 1,
@@ -40,10 +41,14 @@ class Particle2D {
         }
     }
     detectCollision(particles) {
+        // console.log(particles);
         particles.forEach((particle) => {
             if (particle === this) return;
-            
+
             const distance = this.position.distanceTo(particle.position);
+
+            if (distance === 0) return;
+            
             if (distance < this.radius + particle.radius) {
                 // Calculate impulse magnitude for inelastic collision using damping
                 const impulseMagnitude = distance - (this.radius + particle.radius);
@@ -72,6 +77,8 @@ class Particle2D {
 
     }
     show(pen){
+        if (!this.style.visible) return;
+
         pen.beginPath();
         pen.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
         

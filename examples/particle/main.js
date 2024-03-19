@@ -4,4 +4,4 @@ const engine = new YapheEngine({element: "#yaphe-simulation"});
 const particleWorld = engine.createWorld2d();
 particleWorld.createCanvas();
 particleWorld.createParticle2D();
-engine.ingite();
+engine.ignite();

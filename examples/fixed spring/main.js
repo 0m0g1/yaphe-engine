@@ -9,4 +9,4 @@ const bob = springWorld.createParticle2D(springWorld.center.x, springWorld.cente
 anchor.fixed = true;
 const spring = springWorld.createSpring2D(anchor, bob);
 
-engine.ingite();
+engine.ignite();
