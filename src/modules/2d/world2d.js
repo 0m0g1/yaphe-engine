@@ -32,7 +32,8 @@ class World2d {
         }
         this.boundaryBehavior = boundaryBehavior.bounce;
         this.quadtree = null;
-        this.quadSpaceMaxCapacity = 16;
+        this.quadSpaceMaxCapacity = 4;
+        this.squishParticlesThroughBoundary = false;
     }
     createCanvas(width = this.parent.offsetWidth, height = this.parent.offsetHeight) {
         const canvas = document.createElement("canvas");
@@ -50,9 +51,27 @@ class World2d {
         }
 
         this.quadtree = new Quadtree2D(new Bounds2D(0, 0, canvas.width, canvas.height), this.quadSpaceMaxCapacity);
-
         canvas.onmousedown = (e) => {
-            const mouseVector = new Vector2D(e.clientX, e.clientY);
+            this.handleInputDown(e);
+        }
+        canvas.ontouchstart= (e) => {
+            this.handleInputDown(e.touches[0]);
+        }
+        canvas.onmousemove = (e) => {
+            this.handleInputMove(e);
+        }
+        canvas.ontouchmove = (e) => {
+            this.handleInputMove(e.touches[0]);
+        }
+        canvas.onmouseup = (e) => {
+            this.handleInputUp();
+        }
+        canvas.ontouchend = (e) => {
+            this.handleInputUp();
+        }
+    }
+    handleInputDown(e) {
+        const mouseVector = new Vector2D(e.clientX, e.clientY);
             for (let i = 0; i < this.objects.particles.length; i++) {
                 const particle = this.objects.particles[i];
                 let distanceToParticle = particle.position.distanceFrom(mouseVector);
@@ -60,36 +79,35 @@ class World2d {
                     if (distanceToParticle < particle.radius) {
                         this.mouseEvents.heldParticle = particle;
                         particle.isHeldByMouse = true;
-                        canvas.style.cursor = "grab";
+                        this.canvas.style.cursor = "grab";
                         break;
                     }
                 } else if (distanceToParticle < particle.radius + 4) {
                     this.mouseEvents.heldParticle = particle;
                     particle.isHeldByMouse = true;
-                    canvas.style.cursor = "grab";
+                    this.canvas.style.cursor = "grab";
                     break;
                 }
             }
-        }
-        canvas.onmousemove = (e) => {
-            if (this.mouseEvents.heldParticle) {
-                this.mouseEvents.heldParticle.position.x = e.clientX;
-                this.mouseEvents.heldParticle.position.y = e.clientY;
-                if (this.mouseEvents.pathTraced.length > 10) {
-                    this.mouseEvents.pathTraced.shift();
-                }
-                this.mouseEvents.pathTraced.push(new Vector2D(e.clientX, e.clientY));
+    }
+    handleInputMove(e) {
+        if (this.mouseEvents.heldParticle) {
+            this.mouseEvents.heldParticle.position.x = e.clientX;
+            this.mouseEvents.heldParticle.position.y = e.clientY;
+            if (this.mouseEvents.pathTraced.length > 10) {
+                this.mouseEvents.pathTraced.shift();
             }
+            this.mouseEvents.pathTraced.push(new Vector2D(e.clientX, e.clientY));
         }
-        canvas.onmouseup = (e) => {
-            if (this.mouseEvents.heldParticle) {
-                this.mouseEvents.heldParticle.isHeldByMouse = false;
-                const averageVector = this.mouseEvents.pathTraced[0].getAverageVector(this.mouseEvents.pathTraced);
-                this.mouseEvents.heldParticle.prevPosition.x = averageVector.x;
-                this.mouseEvents.heldParticle.prevPosition.y = averageVector.y;
-                this.mouseEvents.heldParticle = null;
-                canvas.style.cursor = "auto";
-            }
+    }
+    handleInputUp() {
+        if (this.mouseEvents.heldParticle) {
+            this.mouseEvents.heldParticle.isHeldByMouse = false;
+            const averageVector = this.mouseEvents.pathTraced[0].getAverageVector(this.mouseEvents.pathTraced);
+            this.mouseEvents.heldParticle.prevPosition.x = averageVector.x;
+            this.mouseEvents.heldParticle.prevPosition.y = averageVector.y;
+            this.mouseEvents.heldParticle = null;
+            this.canvas.style.cursor = "auto";
         }
     }
     resize(width = this.parent.style.width , height = this.parent.style.height) {
@@ -100,13 +118,6 @@ class World2d {
             x: this.canvas.width / 2,
             y: this.canvas.height / 2
         }
-    }
-    updateQuadtree() {
-        // Clear the quadtree and insert all particles
-        // this.quadtree.clear();
-        // this.objects.particles.forEach((particle) => {
-        //     this.quadtree.insert(particle);
-        // });
     }
     createParticle2D(x = this.center.x, y = this.center.y, randomInitialVelocity = false) {
         const particle = new Particle2D(x, y, randomInitialVelocity);
@@ -179,17 +190,20 @@ class World2d {
             particle.deflect("y");
         }
     }
+    handleOutOfBoundary(particle) {
+        if (this.boundaryBehavior == boundaryBehavior.bounce) {
+            this.deflectParticle(particle);
+        } else if (this.boundaryBehavior == boundaryBehavior.wrapAround) {
+            this.wrapParticle(particle);
+        }
+    }
     handleParticles() {
         this.objects.particles.forEach((particle) => {
             if (this.gravity.state) {
                 particle.applyForce(this.gravity.acceleration);
             }
 
-            if (this.boundaryBehavior == boundaryBehavior.bounce) {
-                this.deflectParticle(particle);
-            } else if (this.boundaryBehavior == boundaryBehavior.wrapAround) {
-                this.wrapParticle(particle);
-            }
+            this.handleOutOfBoundary(particle);
             
             const squareWidth = 4 * particle.radius;
             const squareHeight = 4 * particle.radius;
@@ -209,9 +223,18 @@ class World2d {
                     particle.detectCollision(constraint.getPoints());
                 }
             })
+            this.objects.springs.forEach((spring) => {
+                if (particle !== spring.anchor && particle !== spring.bob) {
+                    particle.detectCollision(spring.getPoints());
+                }
+            })
 
             if (!particle.fixed || !particle.isHeldByMouse) {
                 particle.update();
+            }
+
+            if (!this.squishParticlesThroughBoundary) {
+                this.handleOutOfBoundary(particle);
             }
 
             particle.show(this.pen);

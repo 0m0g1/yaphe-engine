@@ -4,7 +4,7 @@ const engine = new YapheEngine({element: "#yaphe-simulation"});
 const sandWorld = engine.createWorld2d();
 sandWorld.createCanvas();
 
-const particles = 500;
+const particles = 700;
 const releaserX = sandWorld.canvas.width;
 const units = releaserX / particles;
 

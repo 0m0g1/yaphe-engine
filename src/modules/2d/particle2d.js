@@ -14,6 +14,7 @@ class Particle2D {
         this.fixed = false;
         this.visible = true;
         this.isPoint = false;
+        this.isConstrained = false;
         this.style = {
             stroke: false,
             strokeColor: "black",
