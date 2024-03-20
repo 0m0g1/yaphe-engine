@@ -41,28 +41,31 @@ class Particle2D {
         }
     }
     detectCollision(particles) {
-        // console.log(particles);
         particles.forEach((particle) => {
             if (particle === this) return;
-
-            const distance = this.position.distanceTo(particle.position);
-
+    
+            const distanceVector = this.position.copy().subtract(particle.position);
+            const distance = distanceVector.magnitude();
+    
             if (distance === 0) return;
-            
-            if (distance < this.radius + particle.radius) {
+    
+            const combinedRadius = this.radius + particle.radius;
+    
+            if (distance < combinedRadius) {
                 // Calculate impulse magnitude for inelastic collision using damping
-                const impulseMagnitude = distance - (this.radius + particle.radius);
-                const impulseVector = this.position.copy().subtract(particle.position).normalize().scalarMultiply(impulseMagnitude * particle.damping);
-
+                const impulseMagnitude = distance - combinedRadius;
+                const impulseVector = distanceVector.normalize().scalarMultiply(impulseMagnitude * particle.damping);
+    
                 // Apply impulse to adjust positions
-                const displacementA = impulseVector.scalarMultiply(1 / (1 / this.mass + 1 / particle.mass));
+                const inverseMassSum = 1 / (1 / this.mass + 1 / particle.mass);
+                const displacementA = impulseVector.scalarMultiply(inverseMassSum);
                 const displacementB = displacementA.scalarMultiply(-1);
-
+    
                 this.position.add(displacementA);
                 particle.position.subtract(displacementB);
             }
-        })
-    }
+        });
+    }    
     update() {
         if (this.isHeldByMouse || this.fixed) return;
         
