@@ -1,14 +1,27 @@
 import Particle2D from "./particle2d.js";
 
-class Stick2D {
+class Constraint2D {
     constructor(anchor = new Particle2D(), bob = new Particle2D()) {
         this.anchor = anchor;
         this.bob = bob;
         this.restLength = this.anchor.position.distanceTo(this.bob.position);
+        this.width = 1;
         this.style = {
             visible: true,
             lineWidth: 1,
         }
+    }
+    getPoints() {
+        const points = [];
+        const numOfPoints = this.restLength / (this.width / 2);
+        for (let i = 0; i <= numOfPoints; i++) {
+            const t = i / numOfPoints;
+            const interpolatedPoint = this.anchor.position.copy().lerp(this.bob.position, t);
+            const particle = new Particle2D(interpolatedPoint.x, interpolatedPoint.y);
+            particle.radius = this.width / 2;
+            points.push(particle);
+        }
+        return points;
     }
     update() {
         const delta = this.bob.position.copy().subtract(this.anchor.position);
@@ -36,4 +49,4 @@ class Stick2D {
     }
 }
 
-export default Stick2D;
+export default Constraint2D;

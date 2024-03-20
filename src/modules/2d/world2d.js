@@ -1,9 +1,9 @@
 import utils from "../utils.js";
 import Bounds2D from "./bounds2d.js";
+import Constraint2D from "./constraint2d.js";
 import Particle2D from "./particle2d.js";
 import Quadtree2D from "./quadtree2d.js";
 import Spring2D from "./spring2d.js";
-import Stick2D from "./stick2d.js";
 import Vector2D from "./vector2d.js";
 
 const boundaryBehavior = Object.freeze({
@@ -21,7 +21,7 @@ class World2d {
             acceleration: new Vector2D(0, 0.1)
         }
         this.objects = {
-            sticks: [],
+            constraints: [],
             springs: [],
             particles: [],
         }
@@ -119,27 +119,46 @@ class World2d {
         this.objects.springs.push(spring);
         return spring;
     }
-    createStick2D(a = new Particle2D(), b = new Particle2D()) {
-        const stick = new Stick2D(a, b);
-        this.objects.sticks.push(stick);
-        return stick;
+    createConstraint2D(a = new Particle2D(), b = new Particle2D()) {
+        const constraint = new Constraint2D(a, b);
+        this.objects.constraints.push(constraint);
+        return constraint;
     }
     deflectParticle(particle) {
-        if (particle.position.x > this.canvas.width - particle.radius) {
-            particle.position.x = this.canvas.width - particle.radius
-            particle.deflect("x");
-        }
-        if (particle.position.x < particle.radius) {
-            particle.position.x = particle.radius
-            particle.deflect("x");
-        }
-        if (particle.position.y > this.canvas.height - particle.radius) {
-            particle.position.y = this.canvas.height - particle.radius;
-            particle.deflect("y");
-        }
-        if (particle.position.y < particle.radius) {
-            particle.position.y = particle.radius;
-            particle.deflect("y");
+        if (particle.isPoint) {
+            if (particle.position.x > this.canvas.width) {
+                particle.position.x = this.canvas.width
+                particle.deflect("x");
+            }
+            if (particle.position.x < particle.radius) {
+                particle.position.x = particle.radius
+                particle.deflect("x");
+            }
+            if (particle.position.y > this.canvas.height) {
+                particle.position.y = this.canvas.height;
+                particle.deflect("y");
+            }
+            if (particle.position.y < 0) {
+                particle.position.y = 0;
+                particle.deflect("y");
+            }
+        } else {
+            if (particle.position.x > this.canvas.width - particle.radius) {
+                particle.position.x = this.canvas.width - particle.radius
+                particle.deflect("x");
+            }
+            if (particle.position.x < particle.radius) {
+                particle.position.x = particle.radius
+                particle.deflect("x");
+            }
+            if (particle.position.y > this.canvas.height - particle.radius) {
+                particle.position.y = this.canvas.height - particle.radius;
+                particle.deflect("y");
+            }
+            if (particle.position.y < particle.radius) {
+                particle.position.y = particle.radius;
+                particle.deflect("y");
+            }
         }
     }
     wrapParticle(particle) {
@@ -185,6 +204,11 @@ class World2d {
             const nearbyParticles = this.quadtree.queryRange(collisionRange);
 
             particle.detectCollision(nearbyParticles);
+            this.objects.constraints.forEach((constraint) => {
+                if (particle !== constraint.anchor && particle !== constraint.bob){
+                    particle.detectCollision(constraint.getPoints());
+                }
+            })
 
             if (!particle.fixed || !particle.isHeldByMouse) {
                 particle.update();
@@ -201,9 +225,9 @@ class World2d {
             spring.update();
             spring.show(this.pen);
         })
-        this.objects.sticks.forEach((stick) => {
-            stick.update();
-            stick.show(this.pen);
+        this.objects.constraints.forEach((constraint) => {
+            constraint.update();
+            constraint.show(this.pen);
         })
     }
 }

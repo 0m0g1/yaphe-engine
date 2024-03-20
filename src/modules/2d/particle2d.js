@@ -12,8 +12,9 @@ class Particle2D {
         this.damping = 0.99;
         this.isHeldByMouse = false;
         this.fixed = false;
+        this.visible = true;
+        this.isPoint = false;
         this.style = {
-            visible: true,
             stroke: false,
             strokeColor: "black",
             strokeWidth: 1,
@@ -49,7 +50,7 @@ class Particle2D {
     
             if (distance === 0) return;
     
-            const combinedRadius = this.radius + particle.radius;
+            const combinedRadius = this.isPoint ? particle.radius : this.radius + particle.radius;
     
             if (distance < combinedRadius) {
                 // Calculate impulse magnitude for inelastic collision using damping
@@ -80,7 +81,7 @@ class Particle2D {
 
     }
     show(pen){
-        if (!this.style.visible) return;
+        if (!this.visible || this.isPoint) return;
 
         pen.beginPath();
         pen.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);

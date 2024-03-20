@@ -66,6 +66,16 @@ class Vector3D {
     dot(vector) {
         return this.x * vector.x + this.y * vector.y + this.z * vector.z;
     }
+    lerp(otherVector, t) {
+        return new Vector3D(
+            this.x + (otherVector.x - this.x) * t,
+            this.y + (otherVector.y - this.y) * t,
+            this.z + (otherVector.z - this.z) * t,
+        );
+    }
+    clone() {
+        this.copy();
+    }
     copy() {
         return new Vector3D(this.x, this.y, this.z);
     }

@@ -62,6 +62,15 @@ class Vector2D {
     dot(vector) {
         return this.x * vector.x + this.y * vector.y;
     }
+    lerp(otherVector, t) {
+        return new Vector2D(
+            this.x + (otherVector.x - this.x) * t,
+            this.y + (otherVector.y - this.y) * t
+        );
+    }
+    clone() {
+        this.copy();
+    }
     copy() {
         return new Vector2D(this.x, this.y);
     }

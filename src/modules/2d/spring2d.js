@@ -7,8 +7,8 @@ class Spring2D {
         this.bob = bob;
         this.velocity = new Vector2D();
         this.stiffness = 0.01;
-        this.restLength = 150;
-        this.maxLength = 500;
+        this.restLength = this.anchor.position.distanceTo(this.bob.position);
+        this.maxLength = this.restLength + 50;
         this.damping = 0.99;
         this.style = {
             visible: true,
@@ -16,23 +16,43 @@ class Spring2D {
         }
     }
     update() {
-        const force = this.bob.position.copy().subtract(this.anchor.position);
-        const x = force.magnitude() - this.restLength;
-        force.normalize();
-        force.scalarMultiply(this.stiffness * -1 * x);
-        this.velocity.add(force);
-        
-        if (!this.bob.isHeldByMouse || !this.bob.fixed) {
-            this.bob.applyForce(this.velocity);
-        }
-        
-        this.velocity.scalarMultiply(-1);
+        const displacement = this.anchor.position.distanceTo(this.bob.position);
 
-        if (!this.anchor.isHeldByMouse || !this.anchor.fixed) {
-            this.anchor.applyForce(this.velocity);
+        if (displacement > this.maxLength) {
+            const delta = this.bob.position.copy().subtract(this.anchor.position);
+            const displacement = this.anchor.position.distanceTo(this.bob.position);
+            const difference = this.maxLength - displacement;
+            // Calculate offset based on percentage of difference
+            const percentage = (difference / displacement) / 2;
+            const offset = delta.scalarMultiply(percentage);
+    
+            // Apply offset to anchor and bob if not held by mouse or fixed
+            if (!this.anchor.isHeldByMouse && !this.anchor.fixed) {
+                this.anchor.position.subtract(offset);
+            }
+            if (!this.bob.isHeldByMouse && !this.bob.fixed) {
+                this.bob.position.add(offset);
+            }
+        } else {
+            const force = this.bob.position.copy().subtract(this.anchor.position);
+            const x = force.magnitude() - this.restLength;
+            force.normalize();
+            force.scalarMultiply(this.stiffness * -1 * x);
+            this.velocity.add(force);
+            
+            if (!this.bob.isHeldByMouse || !this.bob.fixed) {
+                this.bob.applyForce(this.velocity);
+            }
+            
+            this.velocity.scalarMultiply(-1);
+    
+            if (!this.anchor.isHeldByMouse || !this.anchor.fixed) {
+                this.anchor.applyForce(this.velocity);
+            }
+    
+            this.velocity.scalarMultiply(this.damping);
         }
 
-        this.velocity.scalarMultiply(this.damping);
     }
     show(pen) {
         if (!this.style.visible) return;
