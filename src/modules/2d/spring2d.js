@@ -68,9 +68,13 @@ class Spring2D {
         const percentage = (difference / displacement) / 2;
         const offset = delta.scalarMultiply(percentage);
 
-        // Apply offset to anchor and bob if not held by mouse or fixed
-        this.anchor.position.subtract(offset);
-        this.bob.position.add(offset);
+        // Apply offset to anchor and bob if not pinned or fixed
+        if(!this.anchor.pinned && !this.anchor.fixed) {
+            this.anchor.position.subtract(offset);
+        }
+        if(!this.bob.pinned && !this.bob.fixed) {
+            this.bob.position.add(offset);
+        }
     }
     show(pen) {
         if (!this.style.visible) return;
