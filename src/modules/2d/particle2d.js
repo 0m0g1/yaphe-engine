@@ -15,6 +15,7 @@ class Particle2D {
         this.visible = true;
         this.isPoint = false;
         this.isConstrained = false;
+        this.pinned = false;
         this.style = {
             stroke: false,
             strokeColor: "black",
@@ -25,7 +26,7 @@ class Particle2D {
         this.mass = 1;
     }
     applyForce(force){
-        if (this.isHeldByMouse || this.fixed) return;
+        if (this.isHeldByMouse || this.fixed || this.pinned) return;
         this.acceleration.add(force.copy().scalarDivide(this.mass));
     }
     deflect(direction = "") {
@@ -69,7 +70,7 @@ class Particle2D {
         });
     }    
     update() {
-        if (this.isHeldByMouse || this.fixed) return;
+        if (this.isHeldByMouse || this.fixed || this.pinned) return;
         
         const tempPos = this.position.copy();
 
