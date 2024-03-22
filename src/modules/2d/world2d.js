@@ -74,6 +74,7 @@ class World2d {
         const mouseVector = new Vector2D(e.clientX, e.clientY);
             for (let i = 0; i < this.objects.particles.length; i++) {
                 const particle = this.objects.particles[i];
+                if (particle.pinned) return;
                 let distanceToParticle = particle.position.distanceFrom(mouseVector);
                 if (particle.radius > 4) {
                     if (distanceToParticle < particle.radius) {
