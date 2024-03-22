@@ -69,12 +69,8 @@ class Spring2D {
         const offset = delta.scalarMultiply(percentage);
 
         // Apply offset to anchor and bob if not held by mouse or fixed
-        if (!this.anchor.isHeldByMouse && !this.anchor.fixed) {
-            this.anchor.position.subtract(offset);
-        }
-        if (!this.bob.isHeldByMouse && !this.bob.fixed) {
-            this.bob.position.add(offset);
-        }
+        this.anchor.position.subtract(offset);
+        this.bob.position.add(offset);
     }
     show(pen) {
         if (!this.style.visible) return;
