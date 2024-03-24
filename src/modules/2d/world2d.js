@@ -1,7 +1,9 @@
 import utils from "../utils.js";
 import Bounds2D from "./bounds2d.js";
 import Constraint2D from "./constraint2d.js";
+import Engine2D from "./engine2d.js";
 import Particle2D from "./particle2d.js";
+import YaphePath2D from "./path2d.js";
 import Quadtree2D from "./quadtree2d.js";
 import Spring2D from "./spring2d.js";
 import Vector2D from "./vector2d.js";
@@ -24,6 +26,8 @@ class World2d {
             constraints: [],
             springs: [],
             particles: [],
+            paths: [],
+            engines: []
         }
         this.center = null;
         this.mouseEvents = {
@@ -138,6 +142,16 @@ class World2d {
         this.objects.constraints.push(constraint);
         return constraint;
     }
+    createPath2D() {
+        const path = new YaphePath2D();
+        this.objects.paths.push(path);
+        return path;
+    }
+    createEngine2D(particles = [], path = new YaphePath2D()) {
+        const engine = new Engine2D(particles, path);
+        this.objects.engines.push(engine);
+        return engine;
+    }
     deflectParticle(particle) {
         if (particle.isPoint) {
             if (particle.position.x > this.canvas.width) {
@@ -251,6 +265,11 @@ class World2d {
             constraint.update();
         })
     }
+    handleEngines() {
+        this.objects.engines.forEach((engine) => {
+            engine.update();
+        })
+    }
     render() {
         this.pen.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.objects.particles.forEach((particle) => {
@@ -262,15 +281,16 @@ class World2d {
         this.objects.constraints.forEach((constraint) => {
             constraint.show(this.pen);
         })
+        this.objects.engines.forEach((engine) => {
+            engine.show(this.pen);
+        })
     }
     update() {
         this.quadtree.update();
         this.handleSprings();
         this.handleParticles();
-        this.objects.constraints.forEach((constraint) => {
-            constraint.update();
-            constraint.show(this.pen);
-        })
+        this.handleConstrains();
+        this.handleEngines();
         this.render();
     }
 }
