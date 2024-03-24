@@ -99,6 +99,8 @@ class World2d {
                 this.mouseEvents.pathTraced.shift();
             }
             this.mouseEvents.pathTraced.push(new Vector2D(e.clientX, e.clientY));
+            this.handleSprings();
+            this.handleConstrains();
         }
     }
     handleInputUp() {
@@ -237,22 +239,39 @@ class World2d {
             if (!this.squishParticlesThroughBoundary) {
                 this.handleOutOfBoundary(particle);
             }
-
+        })
+    }
+    handleSprings() {
+        this.objects.springs.forEach((spring) => {
+            spring.update();
+        })
+    }
+    handleConstrains() {
+        this.objects.constraints.forEach((constraint) => {
+            constraint.update();
+        })
+    }
+    render() {
+        this.pen.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.objects.particles.forEach((particle) => {
             particle.show(this.pen);
+        })
+        this.objects.springs.forEach((spring) => {
+            spring.show(this.pen);
+        })
+        this.objects.constraints.forEach((constraint) => {
+            constraint.show(this.pen);
         })
     }
     update() {
-        this.pen.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.quadtree.update();
+        this.handleSprings();
         this.handleParticles();
-        this.objects.springs.forEach((spring) => {
-            spring.update();
-            spring.show(this.pen);
-        })
         this.objects.constraints.forEach((constraint) => {
             constraint.update();
             constraint.show(this.pen);
         })
+        this.render();
     }
 }
 

@@ -32,28 +32,43 @@ class Spring2D {
         if (this.isConstrained()) {
             this.constrain();
         } else {
-            this.anchor.isConstrained = false;
-            this.bob.isConstrained = false;
-            const force = this.bob.position.copy().subtract(this.anchor.position);
-            const x = force.magnitude() - this.restLength;
-            force.normalize();
-            force.scalarMultiply(this.stiffness * -1 * x);
-            this.velocity.add(force);
-            
-            if (!this.bob.isHeldByMouse || !this.bob.fixed) {
-                this.bob.applyForce(this.velocity);
-            }
-            
-            this.velocity.scalarMultiply(-1);
+            const displacement = this.anchor.position.distanceTo(this.bob.position);
+            const maxDisplacement = displacement - this.maxLength;
     
-            if (!this.anchor.isHeldByMouse || !this.anchor.fixed) {
-                this.anchor.applyForce(this.velocity);
-            }
+            if (maxDisplacement > 0) {
+                // Calculate the maximum force required to keep the spring within its maximum length
+                const maxForce = this.stiffness * maxDisplacement;
     
-            this.velocity.scalarMultiply(this.damping);
-        }
+                const force = this.bob.position.copy().subtract(this.anchor.position);
+                const x = force.magnitude() - this.restLength;
+                force.normalize();
+                
+                // Ensure the force does not exceed the maximum force
+                if (x > maxForce) {
+                    x = maxForce;
+                }
+                else if (x < -maxForce) {
+                    x = -maxForce;
+                }
 
+                force.scalarMultiply(this.stiffness * -1 * x);
+                this.velocity.add(force);
+                
+                if (!this.bob.isHeldByMouse || !this.bob.fixed) {
+                    this.bob.applyForce(this.velocity);
+                }
+                
+                this.velocity.scalarMultiply(-1);
+        
+                if (!this.anchor.isHeldByMouse || !this.anchor.fixed) {
+                    this.anchor.applyForce(this.velocity);
+                }
+        
+                this.velocity.scalarMultiply(this.damping);
+            }
+        }
     }
+    
     isConstrained() {
         const displacement = this.anchor.position.distanceTo(this.bob.position);
         return displacement > this.maxLength; 
@@ -63,6 +78,24 @@ class Spring2D {
         this.bob.isConstrained = true;
         const delta = this.bob.position.copy().subtract(this.anchor.position);
         const displacement = this.anchor.position.distanceTo(this.bob.position);
+        const difference = this.maxLength - displacement;
+        // Calculate offset based on percentage of difference
+        const percentage = (difference / displacement) / 2;
+        const offset = delta.scalarMultiply(percentage);
+
+        // Apply offset to anchor and bob if not pinned or fixed
+        if(!this.anchor.pinned && !this.anchor.fixed) {
+            this.anchor.position.subtract(offset);
+        }
+        if(!this.bob.pinned && !this.bob.fixed) {
+            this.bob.position.add(offset);
+        }
+    }
+    setConstrain(point) {
+        this.anchor.isConstrained = true;
+        this.bob.isConstrained = true;
+        const delta = point.copy().subtract(this.anchor.position);
+        const displacement = this.anchor.position.distanceTo(point);
         const difference = this.maxLength - displacement;
         // Calculate offset based on percentage of difference
         const percentage = (difference / displacement) / 2;

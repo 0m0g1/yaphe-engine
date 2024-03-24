@@ -4,6 +4,7 @@ class Particle2D {
     constructor(x = 0, y = 0, randomInitialVelocity = false) {
         this.position = new Vector2D(x, y)
         this.prevPosition = this.position.copy();
+        this.constrainedPosition = null;
         this.prevPosition.x -= randomInitialVelocity ? (Math.random() * (Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1))) : 0;
         this.prevPosition.y -= randomInitialVelocity ? (Math.random() * (Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1))) : 0;
         this.acceleration = new Vector2D();
