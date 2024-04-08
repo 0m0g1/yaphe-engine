@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - Yaphe Engine</title>
+    <link rel="stylesheet" href="./public/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+Plus+Rounded+1c&display=swap">
+</head>
+<body>
+    <section id="nav-bar">
+        <div id="mobile-nav">
+            <div class="hbox">
+                <div>
+                    <a href="index.html">
+                        <div class="icon-wrapper">
+                            <img loading="lazy" src="./public/assets/img/logotransparent.png" alt="">
+                        </div>
+                        <span>Yaphe engine</span>
+                    </a>
+                </div>
+                <button class="icon-wrapper" id="hamburger">
+                    <img loading="lazy" id="hamburger-img" src="./public/assets/img/hamburger.svg" alt="">
+                </button>
+            </div>
+        </div>
+        <div id="desktop-nav">
+            <div id="logo">
+                <a href="index.html">
+                    <div class="icon-wrapper">
+                        <img loading="lazy" src="./public/assets/img/logotransparent.png" alt="">
+                    </div>
+                    <span>Yahpe engine</span>
+                </a>
+            </div>
+            <div>
+                <ul>
+                    <ul>
+                        <li>
+                            <a href="./index.html">Home</a>
+                        </li>
+                        <li class="active-link">
+                            <a href="./features.html">Features</a>
+                        </li>
+                        <li>
+                            <a href="/examples/examples.html">Examples </a>
+                        </li>
+                        <li>
+                            <a href="#">Community</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine" target="_blank">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="./contact.html">Contact</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/0m0g1/yaphe-engine" target="_blank">Contribute</a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div id="mobile-nav-popup">
+        <div id="toolbar">
+            <div>
+                <div>
+                    <button class="icon-wrapper">
+                        <img loading="lazy" src="./public/assets/img/search.svg" alt="">
+                    </button>
+                    <input type="text">
+                </div>
+                <button>Cancle</button>
+            </div>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a href="./index.html">Home<span><img loading="lazy" src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="./features.html">Features<span><img loading="lazy" src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="/examples/examples.html">Examples <span><img loading="lazy" src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="#">Community<span><img loading="lazy" src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="https://0m0g1.gitbook.io/yaphe-engine" target="_blank">Documentation<span><img loading="lazy" src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="./contact.html">Contact<span><img loading="lazy" src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="https://github.com/0m0g1/yaphe-engine" target="_blank">Contribute<span><img loading="lazy" src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <button class="primary-button">Learn</button>
+        </div>
+    </div>
+    <section id="features-landing">
+        <div>
+            <h1>Features</h1>
+        </div>
+        <div class="img-wrapper">
+            <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+        </div>
+        <div>
+            <p>From design visualizations and cinematic experiences to high-quality games across PC, console, mobile, VR, and AR, Unreal Engine gives you everything you need to start, ship, grow, and stand out from the crowd. </p>
+            <br>
+            <p>Some features are Beta or Experimental, and should not be considered production-ready. Check the linked documentation for details.</p>
+        </div>
+    </section>
+    <section id="features-listing">
+        <div>
+            <!-- <h1>News</h1>
+            <a href="#">View all</a> -->
+        </div>
+        <div id="features-list">
+            <ul>
+                <li>
+                    <button onclick="openAccordion('softbody-dynamics')">
+                        <h2>Soft body dynamics</h2>
+                        <div class="icon-wrapper">
+                            <img loading="lazy" data-accordion-name="softbody-dynamics" src="./public/assets/img/chevron-down.svg" alt="">
+                        </div>
+                    </button>
+                    <div data-accordion-name="softbody-dynamics">
+                        <div class="img-wrapper">
+                            <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+                        </div>
+                        <div>
+                            <h2>This supports soft body dynamics</h2>
+                            <p>
+                                Handling deformable objects like cloth, rubber, or fluids.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="openAccordion('collision-detection')">
+                        <h2>Collision Detection</h2>
+                        <div class="icon-wrapper">
+                            <img loading="lazy" data-accordion-name="collision-detection" src="./public/assets/img/chevron-down.svg" alt="">
+                        </div>
+                    </button>
+                    <div data-accordion-name="collision-detection">
+                        <div class="img-wrapper">
+                            <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+                        </div>
+                        <div>
+                            <h2>This supports soft collision-detection</h2>
+                            <p>
+                                Determining when and where objects collide, and calculating the resulting forces.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="openAccordion('constraints')">
+                        <h2>Constraints</h2>
+                        <div class="icon-wrapper">
+                            <img loading="lazy" data-accordion-name="constraints" src="./public/assets/img/chevron-down.svg" alt="">
+                        </div>
+                    </button>
+                    <div data-accordion-name="constraints">
+                        <div class="img-wrapper">
+                            <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+                        </div>
+                        <div>
+                            <h2>This supports soft constraints</h2>
+                            <p>
+                                Providing mechanisms to constrain the movement of objects, such as joints, hinges, or springs.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="openAccordion('particle-systems')">
+                        <h2>Particle Systems</h2>
+                        <div class="icon-wrapper">
+                            <img loading="lazy" data-accordion-name="particle-systems" src="./public/assets/img/chevron-down.svg" alt="">
+                        </div>
+                    </button>
+                    <div data-accordion-name="particle-systems">
+                        <div class="img-wrapper">
+                            <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+                        </div>
+                        <div>
+                            <h2>This supports soft particle-systems</h2>
+                            <p>
+                                Simulating the behavior of large numbers of small particles, often used for effects like fire, smoke, or explosions.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="openAccordion('kinematics')">
+                        <h2>Kinematics</h2>
+                        <div class="icon-wrapper">
+                            <img loading="lazy" data-accordion-name="kinematics" src="./public/assets/img/chevron-down.svg" alt="">
+                        </div>
+                    </button>
+                    <div data-accordion-name="kinematics">
+                        <div class="img-wrapper">
+                            <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+                        </div>
+                        <div>
+                            <h2>This supports kinematics</h2>
+                            <p>
+                                Supporting kinematic animations, allowing objects to move according to predefined paths or constraints without physical simulation.
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section id="integrate-cta">
+        <div>
+            <h1>Ready to start?</h1>
+        </div>
+        <div>
+            <p>Integrate the lastest version of Yaphe into your website</p>
+            <a href="http://0m0g1.gitbook.io/yaphe-engine" class="secondary-button">Integrate</a>
+        </div>
+    </section>
+    <section id="footer">
+        <div id="socials">
+            <ul>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/telegram.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/twitter.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/youtube.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/twitterx.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/instagram.svg" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <h3>Useful links</h3>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact us</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine">Learn</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Samples</h3>
+                    <ul>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/particle/particle.html">Particle</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/fixed%20spring/spring.html">Spring</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/stick/stick.html">Stick and ball</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/fixed%20rope/rope.html">Rope</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/cloth/cloth.html">Cloth</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/engine/engine.html">Engine</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Community</h3>
+                    <ul>
+                        <li>
+                            <a href="#">Telegram</a>
+                        </li>
+                        <li>
+                            <a href="#">Discord</a>
+                        </li>
+                        <li>
+                            <a href="#">Twitter</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Resources</h3>
+                    <ul>
+                        <li>
+                            <a href="#">Youtube</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="https://www.github.com/0m0g1/yaphe-engine">Repository</a>
+                        </li>
+                        <li>
+                            <a href="https://www.github.com/0m0g1/yaphe-engine">Asset library</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="#">Community</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="horizontal-break" style="background-color: var(--footer-bg);"></section>
+    <section id="copyright">
+        <div>
+            <p>© 2024, 0m0g1</p>
+            <ul>
+                <li>
+                    <a href="#">Terms of service</a>
+                </li>
+                <li>
+                    <a href="#">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#">Safety and security</a>
+                </li>
+                <li>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <a href="index.html" class="icon-wrapper">
+                <img loading="lazy" src="./public/assets/img/logotransparent.png" alt="">
+            </a>
+        </div>
+    </section>
+    <script src="./public/main.js"></script>
+</body>
+</html>

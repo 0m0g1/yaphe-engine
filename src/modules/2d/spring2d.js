@@ -40,32 +40,48 @@ class Spring2D {
                 const maxForce = this.stiffness * maxDisplacement;
     
                 const force = this.bob.position.copy().subtract(this.anchor.position);
-                const x = force.magnitude() - this.restLength;
+                let x = force.magnitude() - this.restLength;
                 force.normalize();
                 
                 // Ensure the force does not exceed the maximum force
                 if (x > maxForce) {
                     x = maxForce;
                 }
-                else if (x < -maxForce) {
-                    x = -maxForce;
-                }
 
                 force.scalarMultiply(this.stiffness * -1 * x);
                 this.velocity.add(force);
                 
-                if (!this.bob.isHeldByMouse || !this.bob.fixed) {
+                if (!this.bob.fixed) {
                     this.bob.applyForce(this.velocity);
                 }
                 
                 this.velocity.scalarMultiply(-1);
         
-                if (!this.anchor.isHeldByMouse || !this.anchor.fixed) {
+                if (!this.anchor.fixed) {
                     this.anchor.applyForce(this.velocity);
                 }
         
                 this.velocity.scalarMultiply(this.damping);
             }
+
+            const force = this.bob.position.copy().subtract(this.anchor.position);
+            let x = force.magnitude() - this.restLength;
+            force.normalize();
+            
+            force.scalarMultiply(this.stiffness * -1 * x);
+            this.velocity.add(force);
+            
+            if (!this.bob.isHeldByMouse || !this.bob.fixed) {
+                this.bob.applyForce(this.velocity);
+            }
+            
+            this.velocity.scalarMultiply(-1);
+    
+            if (!this.anchor.isHeldByMouse || !this.anchor.fixed) {
+                this.anchor.applyForce(this.velocity);
+            }
+    
+            this.velocity.scalarMultiply(this.damping);
         }
     }
     

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples - Yaphe Engine</title>
+    <link rel="stylesheet" href="../public/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+Plus+Rounded+1c&display=swap">
+</head>
+<body>
+    <section id="nav-bar">
+        <div id="mobile-nav">
+            <div class="hbox">
+                <div>
+                    <a href="index.html">
+                        <div class="icon-wrapper">
+                            <img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/logotransparent.png" alt="">
+                        </div>
+                        <span>Yaphe engine</span>
+                    </a>
+                </div>
+                <button class="icon-wrapper" id="hamburger">
+                    <img loading="lazy" loading="lazy" loading="lazy" loading="lazy" id="hamburger-img" src="../public/assets/img/hamburger.svg" alt="">
+                </button>
+            </div>
+        </div>
+        <div id="desktop-nav">
+            <div id="logo">
+                <a href="index.html">
+                    <div class="icon-wrapper">
+                        <img loading="lazy" src="../public/assets/img/logotransparent.png" alt="">
+                    </div>
+                    <span>Yahpe engine</span>
+                </a>
+            </div>
+            <div>
+                <ul>
+                    <ul>
+                        <li>
+                            <a href="../index.html">Home</a>
+                        </li>
+                        <li class="active-link">
+                            <a href="../features.html">Features</a>
+                        </li>
+                        <li>
+                            <a href="#">Examples </a>
+                        </li>
+                        <li>
+                            <a href="#">Community</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine" target="_blank">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="../contact.html">Contact</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/0m0g1/yaphe-engine" target="_blank">Contribute</a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div id="mobile-nav-popup">
+        <div id="toolbar">
+            <div>
+                <div>
+                    <button class="icon-wrapper">
+                        <img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/search.svg" alt="">
+                    </button>
+                    <input type="text">
+                </div>
+                <button>Cancel</button>
+            </div>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a href="../index.html">Home<span><img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="../features.html">Features<span><img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="#">Examples <span><img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="#">Community<span><img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="https://0m0g1.gitbook.io/yaphe-engine" target="_blank">Documentation<span><img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="../contact.html">Contact<span><img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="https://github.com/0m0g1/yaphe-engine" target="_blank">Contribute<span><img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <button class="primary-button">Download </button>
+        </div>
+    </div>
+    <section id="example-display-section">
+        <iframe id="example-display" src="../examples/particle/particle.html" frameborder="0"></iframe>
+    </section>
+    <section id="examples-listing">
+        <div>
+            <h1>Examples</h1>
+        </div>
+        <ul>
+            <li><button onclick="openExample('particle/particle.html')">Particle</button></li>
+            <li><button onclick="openExample('particles/particles.html')">Particles</button></li>
+            <li><button onclick="openExample('spring/spring.html')">Free spring</button></li>
+            <li><button onclick="openExample('fixed spring/spring.html')">Fixed spring</button></li>
+            <li><button onclick="openExample('stick/stick.html')">Stick and ball</button></li>
+            <li><button onclick="openExample('box/box.html')">Box</button></li>
+            <li><button onclick="openExample('sand/sand.html')">Sand</button></li>
+            <li><button onclick="openExample('rope/rope.html')">Rope</button></li>
+            <li><button onclick="openExample('fixed rope/rope.html')">Fixed Rope</button></li>
+            <li><button onclick="openExample('cloth/cloth.html')">Cloth</button></li>
+            <li><button onclick="openExample('netnball/net.html')">Net and ball</button></li>
+            <li><button onclick="openExample('engine/engine.html')">Engine</button></li>
+        </ul>
+    </section>
+    <section id="footer">
+        <div id="socials">
+            <ul>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="./public/assets/img/telegram.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="./public/assets/img/twitter.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="./public/assets/img/youtube.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="./public/assets/img/twitterx.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="./public/assets/img/instagram.svg" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <h3>Useful links</h3>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact us</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine">Learn</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Samples</h3>
+                    <ul>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/particle/particle.html">Particle</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/fixed%20spring/spring.html">Spring</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/stick/stick.html">Stick and ball</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/fixed%20rope/rope.html">Rope</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/cloth/cloth.html">Cloth</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/engine/engine.html">Engine</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Community</h3>
+                    <ul>
+                        <li>
+                            <a href="#">Telegram</a>
+                        </li>
+                        <li>
+                            <a href="#">Discord</a>
+                        </li>
+                        <li>
+                            <a href="#">Twitter</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Resources</h3>
+                    <ul>
+                        <li>
+                            <a href="#">Youtube</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="https://www.github.com/0m0g1/yaphe-engine">Repository</a>
+                        </li>
+                        <li>
+                            <a href="https://www.github.com/0m0g1/yaphe-engine">Asset library</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="#">Community</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="horizontal-break" style="background-color: var(--footer-bg);"></section>
+    <section id="copyright">
+        <div>
+            <p>© 2024, 0m0g1</p>
+            <ul>
+                <li>
+                    <a href="#">Terms of service</a>
+                </li>
+                <li>
+                    <a href="#">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#">Safety and security</a>
+                </li>
+                <li>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <a href="../index.html" class="icon-wrapper">
+                <img loading="lazy" loading="lazy" loading="lazy" loading="lazy" src="../public/assets/img/logotransparent.png" alt="">
+            </a>
+        </div>
+    </section>
+    <script src="../public/main.js"></script>
+</body>
+</html>

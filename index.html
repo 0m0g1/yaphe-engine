@@ -3,22 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Yaphe engine</title>
+    <link rel="stylesheet" href="./public/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+Plus+Rounded+1c&display=swap">
 </head>
 <body>
-    <ul>
-        <li><a href="examples/particle/particle.html">Particle</a></li>
-        <li><a href="examples/particles/particles.html">Particles</a></li>
-        <li><a href="examples/spring/spring.html">Free spring</a></li>
-        <li><a href="examples/fixed spring/spring.html">Fixed spring</a></li>
-        <li><a href="examples/stick/stick.html">Stick and ball</a></li>
-        <li><a href="examples/box/box.html">Box</a></li>
-        <li><a href="examples/sand/sand.html">Sand</a></li>
-        <li><a href="examples/rope/rope.html">Rope</a></li>
-        <li><a href="examples/fixed rope/rope.html">Fixed Rope</a></li>
-        <li><a href="examples/cloth/cloth.html">Cloth</a></li>
-        <li><a href="examples/netnball/net.html">Net and ball</a></li>
-        <li><a href="examples/engine/engine.html">Engine</a></li>
-    </ul>
+    <section id="nav-bar">
+        <div id="mobile-nav">
+            <div class="hbox">
+                <div>
+                    <a href="index.html">
+                        <div class="icon-wrapper">
+                            <img loading="lazy" src="./public/assets/img/logotransparent.png" alt="">
+                        </div>
+                        <span>Yaphe engine</span>
+                    </a>
+                </div>
+                <button class="icon-wrapper" id="hamburger">
+                    <img loading="lazy" id="hamburger-img" src="./public/assets/img/hamburger.svg" alt="">
+                </button>
+            </div>
+        </div>
+        <div id="desktop-nav">
+            <div id="logo">
+                <a href="index.html">
+                    <div class="icon-wrapper">
+                        <img loading="lazy" src="./public/assets/img/logotransparent.png" alt="">
+                    </div>
+                    <span>Yahpe engine</span>
+                </a>
+            </div>
+            <div>
+                <ul>
+                    <ul>
+                        <li class="active-link">
+                            <a href="./index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="./features.html">Features</a>
+                        </li>
+                        <li>
+                            <a href="/examples/examples.html">Examples </a>
+                        </li>
+                        <li>
+                            <a href="#">Community</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine" target="_blank">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="./contact.html">Contact</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/0m0g1/yaphe-engine" target="_blank">Contribute</a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div id="mobile-nav-popup">
+        <div id="toolbar">
+            <div>
+                <div>
+                    <button class="icon-wrapper">
+                        <img loading="lazy" src="./public/assets/img/search.svg" alt="">
+                    </button>
+                    <input type="text">
+                </div>
+                <button>Cancel</button>
+            </div>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a href="./index.html">Home<span><img src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="./features.html">Features<span><img src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="/examples/examples.html">Examples<span><img src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="#">Community<span><img src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="https://0m0g1.gitbook.io/yaphe-engine" target="_blank">Documentation<span><img src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="./contact.html">Contact<span><img src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+                <li>
+                    <a href="https://github.com/0m0g1/yaphe-engine" target="_blank">Contribute<span><img src="./public/assets/img/chevron-right.svg" alt=""></span></a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <button class="primary-button">Learn</button>
+        </div>
+    </div>
+    <section id="landing">
+        <div>
+                <div class="vbox">
+                    <h1>My engine,</h1>
+                    <h1>Your craft</h1>
+                </div>
+                <div>
+                    <p>
+                        Our JavaScript physics engine library is designed by developers, for developers, with equitable terms for all. Because every creative mind deserves access to the most open, cutting-edge real-time physics tool to animate their ideas.
+                    </p>
+                </div>
+                <div class="vbox">
+                    <a href="./examples/examples.html" class="primary-button">Try it out</a>
+                    <!-- <a href="#">Licencing</a> -->
+                </div>
+        </div>
+        <div id="video-wrapper">
+            <video src="./public/assets/videos/particle.mp4" autoplay muted loop></video>
+        </div>
+    </section>
+    <section id="news">
+        <div>
+            <h2>News</h2>
+            <a class="secondary-button" href="#">View all</a>
+        </div>
+        <div id="featured-news">
+            <ul>
+                <li>
+                    <div>
+                        <div>
+                            <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+                        </div>
+                        <div>
+                            <h3>Version 1.0.0 released</h3>
+                            <p>The first version of yaphe has been released</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section id="features">
+        <div>
+            <h2>Engine Features</h2>
+        </div>
+        <div class="img-wrapper">
+            <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+        </div>
+        <p>
+            Define dynamic physics, simulate natural movements, or animate the simplest elements—and do it all at the pace of your imagination. Our engine was born from the desire for creative liberty in development. Now, our mission is to continually advance, empowering you to explore new realms of possibility without constraint. 
+        </p>
+        <a class="primary-button" href="./features.html">See all features</a>
+    </section>
+    <!-- <section id="ships">
+        <div>
+            <h1>Ships fully loaded for everyone</h1>
+            <p>
+                Develop games. Produce or animate films. Visualize spaces or products. Create next-generation interfaces. Or build immersive experiences we haven’t even thought of yet. No matter what style, industry, screen size, or project you have in mind, Unreal Engine comes standard with everything you need to help you make it real.
+            </p>
+        </div>
+        <div id="uses">
+            <ul>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/dog.webp" alt="">
+                    </a>
+                </li>
+            </ul>
+            <button id="show-more-uses">Show more <span><img loading="lazy" src="./public/assets/img/chevron-down.svg" alt=""></span></button>
+        </div>
+    </section> -->
+    <section class="horizontal-break"></section>
+    <section id="integration">
+        <div>
+            <h2>Here's how to integrate Yaphe into your website</h2>
+        </div>
+        <a href="#" class="secondary-button">View instructions</a>
+    </section>
+    <section class="horizontal-break"></section>
+    <section id="documentation">
+        <div class="img-wrapper">
+            <!-- <h2>Read the docs</h2> -->
+            <img loading="lazy" src="./public/assets/img/readthedocs.jpg" alt="">
+        </div>
+        <a href="#" class="secondary-button">Docs</a>
+    </section>
+    <!-- <section id="sample-projects"></section> -->
+    <!-- <section id="community"></section> -->
+    <!-- <section id="resources"></section> -->
+    <!-- <section id="licensing"></section>  -->
+    <section id="footer">
+        <div id="socials">
+            <ul>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/telegram.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/twitter.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/youtube.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/twitterx.svg" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img loading="lazy" src="./public/assets/img/instagram.svg" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <h3>Useful links</h3>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact us</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine">Learn</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Samples</h3>
+                    <ul>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/particle/particle.html">Particle</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/fixed%20spring/spring.html">Spring</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/stick/stick.html">Stick and ball</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/fixed%20rope/rope.html">Rope</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/cloth/cloth.html">Cloth</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.github.io/yaphe-engine/examples/engine/engine.html">Engine</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Community</h3>
+                    <ul>
+                        <li>
+                            <a href="#">Telegram</a>
+                        </li>
+                        <li>
+                            <a href="#">Discord</a>
+                        </li>
+                        <li>
+                            <a href="#">Twitter</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Resources</h3>
+                    <ul>
+                        <li>
+                            <a href="#">Youtube</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="https://www.github.com/0m0g1/yaphe-engine">Repository</a>
+                        </li>
+                        <li>
+                            <a href="https://www.github.com/0m0g1/yaphe-engine">Asset library</a>
+                        </li>
+                        <li>
+                            <a href="https://0m0g1.gitbook.io/yaphe-engine">Documentation</a>
+                        </li>
+                        <li>
+                            <a href="#">Community</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="horizontal-break" style="background-color: var(--footer-bg);"></section>
+    <section id="copyright">
+        <div>
+            <p>© 2024, 0m0g1</p>
+            <ul>
+                <li>
+                    <a href="#">Terms of service</a>
+                </li>
+                <li>
+                    <a href="#">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#">Safety and security</a>
+                </li>
+                <li>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <a href="index.html" class="icon-wrapper">
+                <img loading="lazy" src="./public/assets/img/logotransparent.png" alt="">
+            </a>
+        </div>
+    </section>
+    <script src="./public/main.js"></script>
 </body>
 </html>
