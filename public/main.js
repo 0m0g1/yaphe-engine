@@ -41,6 +41,31 @@ function openExample(src) {
     exampleDisplay.src = src;
 }
 
+
+const sliders = document.querySelectorAll(".slider");
+const slidersCallback = (entries, observer) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            slidersObserver.unobserve(entry.target);
+        } else {
+            entry.target.classList.remove("visible");
+        }
+    })
+}
+
+const slidersOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.0
+}
+
+const slidersObserver = new IntersectionObserver(slidersCallback, slidersOptions);
+
+sliders.forEach((slider) => {
+    slidersObserver.observe(slider);
+})
+
 window.onload = () => {
     document.querySelectorAll(`[data-accordion-name]`).forEach((element) => {
         if (element.tagName == "DIV") {

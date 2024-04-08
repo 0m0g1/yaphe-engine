@@ -159,6 +159,7 @@ section {
     width: 100%;
     padding: 80px 6%;
     background-color: var(--background-default);
+    overflow: hidden;
 }
 
 /* main */
@@ -789,7 +790,7 @@ body {
     #landing p {
         font-size: 1.25rem;
         -webkit-text-stroke: 1px;
-        -webkit-text-stroke-color: rgba(0, 0, 0, 0.18);
+        -webkit-text-stroke-color: rgba(0, 0, 0, 0.2);
     }
     #landing> div:nth-child(1) {
         /* padding: 80px 10%; */
@@ -953,4 +954,46 @@ body {
         height: 0px;
         display: none;
     }
+}
+
+.slider {
+    position: relative;
+    opacity: 0;
+    transition-duration: 1.5s;
+}
+
+.slider.visible {
+    opacity: 1;
+}
+
+.slide-up {
+    transform: translateY(100%);
+}
+
+.slide-up.visible {
+    transform: translateY(0);
+}
+
+.slide-left {
+    transform: translateX(100%);
+}
+
+.slide-left.visible {
+    transform: translateX(0);
+}
+
+.slide-right {
+    transform: translateX(-100%);
+}
+
+.slide-right.visible {
+    transform: translateX(0);
+}
+
+.slide-down {
+    transform: translateY(-100%);
+}
+
+.slide-down.visible {
+    transform: translateY(0);
 }
