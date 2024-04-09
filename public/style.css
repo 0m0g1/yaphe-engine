@@ -503,6 +503,10 @@ body {
     margin-bottom: var(--large-gap);
 }
 
+#features-landing div:nth-child(2) {
+    margin-bottom: var(--medium-gap);
+}
+
 #features-landing div:nth-child(2) div:nth-child(1) {
     border-radius: var(--edge-radius);
     overflow: hidden;
@@ -581,12 +585,21 @@ body {
     margin-bottom: var(--large-gap);
 }
 
-#contact section:not(#nav-bar) {
+#contact section:not(#nav-bar, #footer, #copyright) a {
+    text-decoration: underline;
+}
+
+#contact section:not(#nav-bar, #landing) {
     padding-top: 30px;
     padding-bottom: 30px;
 }
 
-#contact section:not(#nav-bar) div:nth-child(1) {
+#contact #landing {
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+#contact section:not(#nav-bar, #landing) div:nth-child(1) {
     margin-bottom: var(--medium-gap);
 }
 
@@ -739,6 +752,13 @@ body {
     #footer> div:nth-child(2)> ul {
         grid-template-columns: auto auto auto;
     }
+    #contact #landing {
+        padding-top: 60px;
+        padding-bottom: 0px !important;
+    }
+    #contact section:nth-child(4) {
+        padding-top: 40px !important;
+    }
 }
 
 @media screen and (width >= 992px) {
@@ -748,6 +768,12 @@ body {
     #nav-bar {
         padding-left: 7%;
         padding-right: 7%;
+    }
+    #contact #landing {
+        padding-top: 60px;
+    }
+    #contact section:nth-child(4) {
+        padding-top: 50px !important;
     }
     #footer> div:nth-child(2)> ul {
         grid-template-columns: auto auto auto auto;
@@ -894,6 +920,13 @@ body {
         grid-template-columns: 50% auto;
         gap: var(--large-gap);
     }
+    #contact #landing {
+        padding-top: 160px;
+        padding-bottom: 0px !important;
+    }
+    #contact section:nth-child(4) {
+        padding-top: 20px !important;
+    }
 }
 
 /* animations */
@@ -964,6 +997,7 @@ body {
 
 .slider.visible {
     opacity: 1;
+    position: static;
 }
 
 .slide-up {
