@@ -329,7 +329,7 @@ body {
     height: 5%;
 }
 
-#mobile-nav-popup div:nth-child(3) button {
+#mobile-nav-popup div:nth-child(3) a {
     width: 100%;
     height: calc(var(--large-gap) * 1.2);
 }
