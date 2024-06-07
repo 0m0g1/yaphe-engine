@@ -1,3 +1,4 @@
+import Style2D from "./style2d.js";
 import Vector2D from "./vector2d.js";
 
 class Particle2D {
@@ -17,14 +18,10 @@ class Particle2D {
         this.isPoint = false;
         this.isConstrained = false;
         this.pinned = false;
-        this.style = {
-            stroke: false,
-            strokeColor: "black",
-            strokeWidth: 1,
-            fill: true,
-            fillColor: "black",
-        }
+        this.style = new Style2D();
         this.mass = 1;
+        this.visible = true;
+        this.isCollidable = true;
     }
     applyForce(force){
         if (this.isHeldByMouse || this.fixed || this.pinned) return;
@@ -47,13 +44,14 @@ class Particle2D {
     detectCollision(particles) {
         particles.forEach((particle) => {
             if (particle === this) return;
+            if (!this.isCollidable) return;
     
             const distanceVector = this.position.copy().subtract(particle.position);
             const distance = distanceVector.magnitude();
     
             if (distance === 0) return;
     
-            const combinedRadius = this.isPoint ? particle.radius : this.radius + particle.radius;
+            const combinedRadius = this.isPoint ? (particle.isPoint? 1 : particle.radius) : this.radius + (particle.isPoint? 1 : particle.radius);
     
             if (distance < combinedRadius) {
                 // Calculate impulse magnitude for inelastic collision using damping
@@ -84,7 +82,7 @@ class Particle2D {
 
     }
     show(pen){
-        if (!this.visible || this.isPoint) return;
+        if (!this.visible || !this.style.visible || this.isPoint) return;
 
         pen.beginPath();
         pen.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);

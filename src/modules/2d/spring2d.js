@@ -1,5 +1,7 @@
 import Particle2D from "./particle2d.js";
 import Vector2D from "./vector2d.js";
+import Style2D from "./style2d.js";
+
 
 class Spring2D {
     constructor(anchor = new Particle2D(), bob = new Particle2D()) {
@@ -11,10 +13,8 @@ class Spring2D {
         this.maxLength = this.restLength + 50;
         this.damping = 0.99;
         this.width = 2;
-        this.style = {
-            visible: true,
-            strokeColor: "black"
-        }
+        this.style = new Style2D();
+        this.isCollidable = true;
     }
     getPoints() {
         const points = [];
@@ -23,6 +23,7 @@ class Spring2D {
             const t = i / numOfPoints;
             const interpolatedPoint = this.anchor.position.copy().lerp(this.bob.position, t);
             const particle = new Particle2D(interpolatedPoint.x, interpolatedPoint.y);
+            particle.isCollidable = this.isCollidable;
             particle.radius = this.width / 2;
             points.push(particle);
         }

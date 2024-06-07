@@ -25,7 +25,6 @@ class YaphePath2D {
         } else {
             console.error(`Equation is not set. Please set an equation for your function`);
         }
-        console.log(this.points);
     }
     getPointAt(x) {
         const point = this.equation(x);

@@ -2,6 +2,7 @@ import utils from "../utils.js";
 import Bounds2D from "./bounds2d.js";
 import Constraint2D from "./constraint2d.js";
 import Engine2D from "./engine2d.js";
+import Form2D from "./form2d.js";
 import Particle2D from "./particle2d.js";
 import YaphePath2D from "./path2d.js";
 import Quadtree2D from "./quadtree2d.js";
@@ -9,8 +10,9 @@ import Spring2D from "./spring2d.js";
 import Vector2D from "./vector2d.js";
 
 const boundaryBehavior = Object.freeze({
+    none: "none",
     wrapAround: "wrap Around",
-    bounce: "bounce"
+    collide: "collide"
 })
 
 class World2d {
@@ -27,14 +29,22 @@ class World2d {
             springs: [],
             particles: [],
             paths: [],
-            engines: []
+            engines: [],
+            forms: []
         }
         this.center = null;
         this.mouseEvents = {
             heldParticle: null,
             pathTraced: []
         }
-        this.boundaryBehavior = boundaryBehavior.bounce;
+        // this.boundaryBehavior = {
+        //     right: boundaryBehavior.collide,
+        //     left: boundaryBehavior.collide,
+        //     up: boundaryBehavior.collide,
+        //     down: boundaryBehavior.collide,
+        // };
+        this.handleInputs = true;
+        this.boundaryBehavior = boundaryBehavior.collide;
         this.quadtree = null;
         this.quadSpaceMaxCapacity = 4;
         this.squishParticlesThroughBoundary = false;
@@ -75,19 +85,20 @@ class World2d {
         }
     }
     handleInputDown(e) {
+        if (!this.handleInputs) return;
         const mouseVector = new Vector2D(e.clientX, e.clientY);
             for (let i = 0; i < this.objects.particles.length; i++) {
                 const particle = this.objects.particles[i];
                 if (particle.pinned) return;
                 let distanceToParticle = particle.position.distanceFrom(mouseVector);
-                if (particle.radius > 4) {
+                if (particle.radius > 5) {
                     if (distanceToParticle < particle.radius) {
                         this.mouseEvents.heldParticle = particle;
                         particle.isHeldByMouse = true;
                         this.canvas.style.cursor = "grab";
                         break;
                     }
-                } else if (distanceToParticle < particle.radius + 4) {
+                } else if (distanceToParticle < particle.radius + 5) {
                     this.mouseEvents.heldParticle = particle;
                     particle.isHeldByMouse = true;
                     this.canvas.style.cursor = "grab";
@@ -96,7 +107,10 @@ class World2d {
             }
     }
     handleInputMove(e) {
+        if (!this.handleInputs) return;
         if (this.mouseEvents.heldParticle) {
+            // if (this.mouseEvents.heldParticle.isConstrained) return;
+        
             this.mouseEvents.heldParticle.position.x = e.clientX;
             this.mouseEvents.heldParticle.position.y = e.clientY;
             if (this.mouseEvents.pathTraced.length > 10) {
@@ -108,6 +122,7 @@ class World2d {
         }
     }
     handleInputUp() {
+        if (!this.handleInputs) return;
         if (this.mouseEvents.heldParticle) {
             this.mouseEvents.heldParticle.isHeldByMouse = false;
             const averageVector = this.mouseEvents.pathTraced[0].getAverageVector(this.mouseEvents.pathTraced);
@@ -151,6 +166,11 @@ class World2d {
         const engine = new Engine2D(particles, path);
         this.objects.engines.push(engine);
         return engine;
+    }
+    createForm2D(particles = []) {
+        const form = new Form2D(particles);
+        this.objects.forms.push(form);
+        return form;
     }
     deflectParticle(particle) {
         if (particle.isPoint) {
@@ -208,7 +228,7 @@ class World2d {
         }
     }
     handleOutOfBoundary(particle) {
-        if (this.boundaryBehavior == boundaryBehavior.bounce) {
+        if (this.boundaryBehavior == boundaryBehavior.collide) {
             this.deflectParticle(particle);
         } else if (this.boundaryBehavior == boundaryBehavior.wrapAround) {
             this.wrapParticle(particle);
@@ -236,13 +256,17 @@ class World2d {
 
             particle.detectCollision(nearbyParticles);
             this.objects.constraints.forEach((constraint) => {
-                if (particle !== constraint.anchor && particle !== constraint.bob){
-                    particle.detectCollision(constraint.getPoints());
+                if (constraint.isCollidable) {
+                    if (particle !== constraint.anchor && particle !== constraint.bob){
+                        particle.detectCollision(constraint.getPoints());
+                    }
                 }
             })
             this.objects.springs.forEach((spring) => {
-                if (particle !== spring.anchor && particle !== spring.bob) {
-                    particle.detectCollision(spring.getPoints());
+                if (spring.isCollidable) {
+                    if (particle !== spring.anchor && particle !== spring.bob) {
+                        particle.detectCollision(spring.getPoints());
+                    }
                 }
             })
 
@@ -284,16 +308,25 @@ class World2d {
         this.objects.engines.forEach((engine) => {
             engine.show(this.pen);
         })
+        this.objects.forms.forEach((form) => {
+            form.show(this.pen);
+        })
     }
-    update() {
-        this.quadtree.update();
+    handleObjects() {
         this.handleSprings();
         this.handleParticles();
         this.handleConstrains();
         this.handleEngines();
+    }
+    update() {
+        // this.handleInputs = false;
+        this.quadtree.update();
+        this.handleObjects();
         this.render();
+        // this.handleInputs = true;
     }
 }
 
 
 export default World2d;
+// exports.boundaryBehavior = boundaryBehavior;

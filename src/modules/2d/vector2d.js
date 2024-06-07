@@ -68,8 +68,20 @@ class Vector2D {
             this.y + (otherVector.y - this.y) * t
         );
     }
+    angleTo(point) {
+        const dx = point.x - this.x;
+        const dy = point.y - this.y;
+        const angle = Math.atan2(dy, dx);
+        return angle;
+    }
+    angleFrom(point) {
+        const dx = this.x - point.x;
+        const dy = this.y - point.y;
+        const angle = Math.atan2(dy, dx);
+        return angle;
+    }
     clone() {
-        this.copy();
+        return this.copy();
     }
     copy() {
         return new Vector2D(this.x, this.y);

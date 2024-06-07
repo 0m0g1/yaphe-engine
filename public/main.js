@@ -1,3 +1,6 @@
+import YapheEngine from "../src/engine.js";
+
+
 const hamburger = document.querySelector("#hamburger");
 const navbar = document.querySelector("#nav-bar");
 const hamburgerImg = document.querySelector("#hamburger-img");
@@ -65,6 +68,33 @@ const slidersObserver = new IntersectionObserver(slidersCallback, slidersOptions
 sliders.forEach((slider) => {
     slidersObserver.observe(slider);
 })
+
+const engine = new YapheEngine({element: "#yaphe-simulation"});
+const chainWorld = engine.createWorld2D();
+chainWorld.boundaryBehavior = "none";
+chainWorld.createCanvas();
+const a = chainWorld.createParticle2D(chainWorld.center.x - 200, chainWorld.center.y);
+const b = chainWorld.createParticle2D(chainWorld.center.x - 150, chainWorld.center.y);
+const c = chainWorld.createParticle2D(chainWorld.center.x - 100, chainWorld.center.y);
+const d = chainWorld.createParticle2D(chainWorld.center.x - 50, chainWorld.center.y);
+const e = chainWorld.createParticle2D(chainWorld.center.x, chainWorld.center.y);
+const particles = [a, b, c, d, e];
+particles.forEach((particle) => {
+    particle.isPoint = true;
+})
+const chains = []
+for(let i = 0; i < particles.length - 1; i++) {
+    const chain = chainWorld.createConstraint2D(particles[i], particles[i + 1]);
+    chain.style.strokeColor = "white";
+    chains.push(chain);
+}
+a.fixed = true;
+// chains[0].visible = false;
+document.onmousemove = (e) => {
+    a.position.x = e.clientX + 8;
+    a.position.y = e.clientY + 17;
+}
+engine.ignite();
 
 window.onload = () => {
     document.querySelectorAll(`[data-accordion-name]`).forEach((element) => {

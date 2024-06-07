@@ -1,6 +1,6 @@
 class Renderer2D {
-    constructor(pen = null) {
-        this.pen = pen;
+    render(pen, style) {
+
     }
 }
 

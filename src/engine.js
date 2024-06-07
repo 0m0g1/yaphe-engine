@@ -10,6 +10,9 @@ class YapheEngine {
         this.start = this.start.bind(this);
     }
     createWorld2d() {
+        return this.createWorld2D();
+    }
+    createWorld2D() {
         const world2d = new World2d({parent: this.parentElement});
         this.world2Ds.push(world2d);
         return world2d;
