@@ -1,6 +1,6 @@
 {
   "name": "yaphe-engine",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A pure JS engine",
   "type": "module",
   "main": "./src/engine.js",
