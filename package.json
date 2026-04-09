@@ -1,16 +1,15 @@
 {
   "name": "yaphe-engine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A pure JS engine",
   "type": "module",
-  "main": "engine.js",
-  "module": "engine.js",
+  "main": "./src/engine.js",
+  "module": "./src/engine.js",
   "scripts": {
     "test": "echo \"no tests yet\""
   },
   "files": [
-    "engine.js",
-    "modules/"
+    "src"
   ],
   "repository": {
     "type": "git",
