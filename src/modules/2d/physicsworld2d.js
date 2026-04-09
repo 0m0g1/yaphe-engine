@@ -6,7 +6,7 @@ import Spring2D from './spring2D.js';
 import Quadtree2D from './quadtree2D.js';
 import Vector2D from './vector2d.js';
 
-export class PhysicsWorld2D {
+class PhysicsWorld2D {
   constructor(boundsWidth, boundsHeight, gravityY = 0.1, quadCapacity = 4) {
     this.bounds = new Bounds2D(0, 0, boundsWidth, boundsHeight);
     this.gravity = new Vector2D(0, gravityY);
@@ -111,3 +111,6 @@ export class PhysicsWorld2D {
     }
   }
 }
+
+
+export default PhysicsWorld2D;
