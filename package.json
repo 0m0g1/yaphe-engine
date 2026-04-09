@@ -1,12 +1,27 @@
 {
   "name": "yaphe-engine",
   "version": "1.0.0",
-  "description": "",
+  "description": "check out the project [here](https://0m0g1.github.io/yaphe-engine/)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0m0g1/yaphe-engine.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/0m0g1/yaphe-engine/issues"
+  },
+  "homepage": "https://github.com/0m0g1/yaphe-engine#readme",
+  "devDependencies": {
+    "microbundle": "^0.15.1"
+  }
 }
