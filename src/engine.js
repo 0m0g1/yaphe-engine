@@ -29,3 +29,7 @@ class YapheEngine {
 }
 
 export default YapheEngine;
+
+if (typeof window !== 'undefined') {
+    window.YapheEngine = YapheEngine;
+}
