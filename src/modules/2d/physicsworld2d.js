@@ -1,9 +1,9 @@
 // src/physics/PhysicsWorld2D.js
 import Bounds2D from './bounds2d.js';
-import Particle2D from './particle2D.js';
-import Constraint2D from './constraint2D.js';
-import Spring2D from './spring2D.js';
-import Quadtree2D from './quadtree2D.js';
+import Particle2D from './particle2d.js';
+import Constraint2D from './constraint2d.js';
+import Spring2D from './spring2d.js';
+import Quadtree2D from './quadtree2d.js';
 import Vector2D from './vector2d.js';
 
 class PhysicsWorld2D {
