@@ -11,23 +11,23 @@
 // ───────────────────────────────────────────────────────────────────────────
 
 // 2D Core
-export { default as World2d }        from './modules/2d/world2d.js';
-export { default as PhysicsWorld2D } from './modules/2d/physicsworld2d.js';
-export { default as Particle2D }     from './modules/2d/particle2d.js';
-export { default as Vector2D }       from './modules/2d/vector2d.js';
-export { default as Quadtree2D }     from './modules/2d/quadtree2d.js';
-export { default as Constraint2D }   from './modules/2d/constraint2d.js';
-export { default as Spring2D }       from './modules/2d/spring2d.js';
-export { default as Form2D }         from './modules/2d/form2d.js';
-export { default as Path2D }         from './modules/2d/path2d.js';
-export { default as Point2D }        from './modules/2d/point2d.js';
-export { default as Bounds2D }       from './modules/2d/bounds2d.js';
-export { default as Engine2D }       from './modules/2d/engine2d.js';
-export { default as Renderer2D }     from './modules/2d/renderer2d.js';
-export { default as Style2D }        from './modules/2d/style2d.js';
+export { World2d }        from './modules/2d/world2d.js';
+export { PhysicsWorld2D } from './modules/2d/physicsworld2d.js';
+export { Particle2D }     from './modules/2d/particle2d.js';
+export { Vector2D }       from './modules/2d/vector2d.js';
+export { Quadtree2D }     from './modules/2d/quadtree2d.js';
+export { Constraint2D }   from './modules/2d/constraint2d.js';
+export { Spring2D }       from './modules/2d/spring2d.js';
+export { Form2D }         from './modules/2d/form2d.js';
+export { Path2D }         from './modules/2d/path2d.js';
+export { Point2D }        from './modules/2d/point2d.js';
+export { Bounds2D }       from './modules/2d/bounds2d.js';
+export { Engine2D }       from './modules/2d/engine2d.js';
+export { Renderer2D }     from './modules/2d/renderer2d.js';
+export { Style2D }        from './modules/2d/style2d.js';
 
 // 3D Module
-export { default as Vector3D }       from './modules/3d/vector3d.js';
+export { Vector3D }       from './modules/3d/vector3d.js';
 
 // Utilities
 export * as Utils                    from './modules/utils.js';
