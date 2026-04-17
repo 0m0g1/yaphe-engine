@@ -1,8 +1,8 @@
-import Particle2D from "./particle2d.js";
-import YaphePath2D from "./path2d.js";
-import Vector2D from "./vector2d.js";
+import { Particle2D } from "./particle2d.js";
+import { YaphePath2D } from "./path2d.js";
+import { Vector2D } from "./vector2d.js";
 
-class Engine2D{
+export class Engine2D{
   constructor(particles = [], path = new YaphePath2D()){
     this.particle = new Particle2D();
     this.attachedParticles = particles;
@@ -26,5 +26,3 @@ class Engine2D{
     this.path.show(pen);
   }
 }
-
-export default Engine2D;

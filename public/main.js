@@ -1,4 +1,4 @@
-import YapheEngine from "../src/engine.js";
+import { YapheEngine } from "../src/engine.js";
 
 
 const hamburger = document.querySelector("#hamburger");

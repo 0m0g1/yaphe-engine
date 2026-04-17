@@ -1,4 +1,4 @@
-class Bounds2D {
+export class Bounds2D {
     constructor(x, y, width, height) {
         this.x = x;
         this.y = y;
@@ -23,5 +23,3 @@ class Bounds2D {
         );
     }
 }
-
-export default Bounds2D;

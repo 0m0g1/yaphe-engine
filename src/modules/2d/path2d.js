@@ -1,6 +1,6 @@
-import Vector2D from "./vector2d.js";
+import { Vector2D } from "./vector2d.js";
 
-class YaphePath2D {
+export class YaphePath2D {
     constructor() {
         this.points = [];
         this.equation = null;
@@ -42,5 +42,3 @@ class YaphePath2D {
         pen.stroke();
     }
 }
-
-export default YaphePath2D;

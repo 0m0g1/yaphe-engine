@@ -1,4 +1,4 @@
-class Vector3D {
+export class Vector3D {
     constructor(x = 0, y = 0, z = 0) {
         this.x = x;
         this.y = y;
@@ -80,5 +80,3 @@ class Vector3D {
         return new Vector3D(this.x, this.y, this.z);
     }
 }
-
-export default Vector3D;

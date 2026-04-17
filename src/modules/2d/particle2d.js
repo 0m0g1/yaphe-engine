@@ -1,7 +1,7 @@
-import Style2D from "./style2d.js";
-import Vector2D from "./vector2d.js";
+import { Style2D } from "./style2d.js";
+import { Vector2D } from "./vector2d.js";
 
-class Particle2D {
+export class Particle2D {
     constructor(x = 0, y = 0, randomInitialVelocity = false) {
         this.position = new Vector2D(x, y)
         this.prevPosition = this.position.copy();
@@ -98,5 +98,3 @@ class Particle2D {
         }
     }
 }
-
-export default Particle2D;

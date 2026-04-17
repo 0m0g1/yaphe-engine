@@ -1,4 +1,4 @@
-import Bounds2D from "./bounds2d.js";
+import { Bounds2D } from "./bounds2d.js";
  
 class QuadtreeNode {
     constructor(bounds, capacity) {
@@ -20,7 +20,7 @@ class QuadtreeNode {
     }
 }
  
-class Quadtree2D {
+export class Quadtree2D {
     constructor(bounds, capacity) {
         this.root    = new QuadtreeNode(bounds, capacity);
         this.objects = [];
@@ -82,5 +82,3 @@ class Quadtree2D {
         }
     }
 }
- 
-export default Quadtree2D;

@@ -33,7 +33,7 @@
  *    across any call that might also use scratches.
  */
 
-class Vector2D {
+export class Vector2D {
     constructor(x = 0, y = 0) {
         this.x = x;
         this.y = y;
@@ -212,5 +212,3 @@ Vector2D._scratch = [
     new Vector2D(),
     new Vector2D(),
 ];
-
-export default Vector2D;

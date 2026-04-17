@@ -1,7 +1,7 @@
-import Particle2D from "./particle2d.js";
-import Style2D from "./style2d.js";
+import { Particle2D }from "./particle2d.js";
+import { Style2D } from "./style2d.js";
 
-class Constraint2D {
+export class Constraint2D {
     constructor(anchor = new Particle2D(), bob = new Particle2D()) {
         this.anchor = anchor;
         this.bob = bob;
@@ -72,5 +72,3 @@ class Constraint2D {
         pen.stroke();
     }
 }
-
-export default Constraint2D;

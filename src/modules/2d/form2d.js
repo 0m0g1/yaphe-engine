@@ -1,7 +1,7 @@
-import Particle2D from "./particle2d.js";
-import Style2D from "./style2d.js";
+import { Particle2D } from "./particle2d.js";
+import { Style2D } from "./style2d.js";
 
-class Form2D {
+export class Form2D {
     constructor(particles = []) {
         this.path = particles;
         this.style = new Style2D();
@@ -87,5 +87,3 @@ class Form2D {
         }
     }
 }
-
-export default Form2D;

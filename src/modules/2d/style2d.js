@@ -1,4 +1,4 @@
-class Style2D {
+export class Style2D {
     constructor() {
         this.stroke = false;
         this.strokeColor = "black";
@@ -8,5 +8,3 @@ class Style2D {
         this.visible = true;
     }
 }
-
-export default Style2D;

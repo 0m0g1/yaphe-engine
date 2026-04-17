@@ -16,8 +16,6 @@ function angleBetweenPoints(a, b) {
     return angle;
 }
 
-const utils = Object.freeze({
+export const utils = Object.freeze({
     angleBetweenPoints: (a, b) => {return angleBetweenPoints(a, b)}
 })
-
-export default utils;

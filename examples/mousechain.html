@@ -9,7 +9,7 @@
 <body>
     <div id="yaphe-simulation"></div>
     <script type="module">
-        import YapheEngine from "../src/engine.js";
+        import { YapheEngine } from "../src/engine.js";
         const engine = new YapheEngine({element: "#yaphe-simulation"});
         const chainWorld = engine.createWorld2D();
         chainWorld.createCanvas();

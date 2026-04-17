@@ -1,11 +1,11 @@
-import Bounds2D    from './bounds2d.js';
-import Particle2D  from './particle2d.js';
-import Constraint2D from './constraint2d.js';
-import Spring2D    from './spring2d.js';
-import Quadtree2D  from './quadtree2d.js';
-import Vector2D    from './vector2d.js';
+import { Bounds2D }    from './bounds2d.js';
+import { Particle2D }  from './particle2d.js';
+import { Constraint2D } from './constraint2d.js';
+import { Spring2D }    from './spring2d.js';
+import { Quadtree2D }  from './quadtree2d.js';
+import { Vector2D }    from './vector2d.js';
  
-class PhysicsWorld2D {
+export class PhysicsWorld2D {
     constructor(boundsWidth, boundsHeight, gravityY = 0.1, quadCapacity = 4) {
         this.bounds      = new Bounds2D(0, 0, boundsWidth, boundsHeight);
         this.gravity     = new Vector2D(0, gravityY);
@@ -95,6 +95,5 @@ class PhysicsWorld2D {
         if (p.position.y + r > this.bounds.height)   { p.position.y = this.bounds.height - r;   p.deflect('y'); }
     }
 }
- 
-export default PhysicsWorld2D;
+
  

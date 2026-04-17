@@ -1,4 +1,4 @@
-import YapheEngine from "../../src/engine.js";
+import { YapheEngine } from "../../src/engine.js";
 
 const engine = new YapheEngine({element: "#yaphe-simulation"});
 const boxWorld = engine.createWorld2d();

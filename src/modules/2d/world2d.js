@@ -1,13 +1,13 @@
-import utils from "../utils.js";
-import Bounds2D from "./bounds2d.js";
-import Constraint2D from "./constraint2d.js";
-import Engine2D from "./engine2d.js";
-import Form2D from "./form2d.js";
-import Particle2D from "./particle2d.js";
-import YaphePath2D from "./path2d.js";
-import Quadtree2D from "./quadtree2d.js";
-import Spring2D from "./spring2d.js";
-import Vector2D from "./vector2d.js";
+import { utils } from "../utils.js";
+import { Bounds2D} from "./bounds2d.js";
+import { Constraint2D } from "./constraint2d.js";
+import { Engine2D } from "./engine2d.js";
+import { Form2D } from "./form2d.js";
+import { Particle2D } from "./particle2d.js";
+import { YaphePath2D } from "./path2d.js";
+import { Quadtree2D } from "./quadtree2d.js";
+import { Spring2D } from "./spring2d.js";
+import { Vector2D } from "./vector2d.js";
 
 const boundaryBehavior = Object.freeze({
     none: "none",
@@ -15,7 +15,7 @@ const boundaryBehavior = Object.freeze({
     collide: "collide"
 })
 
-class World2d {
+export class World2D {
     constructor(constructors = {parent: null}) {
         this.parent = constructors.parent;
         this.canvas = null;
@@ -328,5 +328,4 @@ class World2d {
 }
 
 
-export default World2d;
 // exports.boundaryBehavior = boundaryBehavior;
